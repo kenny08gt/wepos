@@ -484,7 +484,7 @@
                         <div class="content">
                             <div class="payment-gateway">
                                 <template v-if="availableGateways.length > 0">
-                                    <label v-for="gateway in availableGateways">
+                                    <label v-for="gateway in availableGateways" :key="gateway.id">
                                         <input type="radio" name="gateway" checked :value="gateway.id" v-model="selectedGateway">  <!-- v-model="orderdata.payment_method" -->
                                         <span class="gateway" :class="`gateway-${gateway.id}`">
                                             {{ gateway.title }}
@@ -514,6 +514,21 @@
                                         </div>
                                         <div class="change-money">
                                             <p>{{ __( 'Change money', 'wepos' ) }}: {{ formatPrice( changeAmount ) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template v-if="orderdata.payment_method=='wepos_POSTicket'">
+                                <div class="payment-option">
+                                    <div class="payment-amount">
+                                        <div class="input-part">
+                                            <div class="input-wrap">
+                                                <p>{{ __( 'Authorization', 'wepos' ) }}</p>
+                                                <div class="input-addon">
+                                                    <!-- <span class="currency">{{ wepos.currency_format_symbol }}</span> -->
+                                                    <input type="number" v-model="posAuthorization" ref="posAuthorization">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -599,6 +614,7 @@ export default {
             availableGateways: [],
             emptyGatewayDiv: 0,
             cashAmount: '',
+            posAuthorization: 0,
             availableTax: [],
             settings: {},
             taxSettings: {},
@@ -715,6 +731,10 @@ export default {
         cashAmount( newdata, olddata ) {
             this.ableToProcess();
         },
+
+        posAuthorization( newdata, olddata ) {
+            this.ableToProcess();
+        },
     },
 
     methods: {
@@ -755,6 +775,7 @@ export default {
 
             this.showPaymentReceipt = false;
             this.cashAmount = '';
+            this.posAuthorization = 0;
             this.eventBus.$emit( 'emptycart', this.orderdata );
             this.showQucikMenu = false;
         },
@@ -775,6 +796,8 @@ export default {
                  canProcess = this.unFormat(this.cashAmount)
                     >= this.truncateNumber(this.$store.getters['Cart/getTotal'])
                     && canProcess;
+            } else if(this.selectedGateway === 'wepos_POSTicket'){
+                canProcess = this.posAuthorization != 0;
             }
 
             console.log( canProcess );
@@ -805,6 +828,10 @@ export default {
                         {
                             key: '_wepos_cash_tendered_amount',
                             value: self.cashAmount.toString()
+                        },
+                        {
+                            key: '_wepos_pos_authorization',
+                            value: self.posAuthorization.toString()
                         },
                         {
                             key: '_wepos_cash_change_amount',
@@ -841,6 +868,7 @@ export default {
                             order_id: response.id,
                             order_date: response.date_created,
                             cashamount: this.cashAmount.toString(),
+                            posAuthorization: this.posAuthorization.toString(),
                             changeamount: this.changeAmount.toString()
                         }, orderdata );
                       $contentWrap.unblock();

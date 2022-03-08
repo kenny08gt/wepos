@@ -55,6 +55,7 @@ return [
 	__( 'Payment method', 'wepos' ),
 	__( 'Cash Given', 'wepos' ),
 	__( 'Change Money', 'wepos' ),
+	__( 'Authorization', 'wepos' ),
 	__( 'Add Note', 'wepos' ),
 	__( 'Select a category', 'wepos' ),
 	__( 'Not found', 'wepos' ),

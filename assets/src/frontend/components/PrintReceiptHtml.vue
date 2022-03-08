@@ -63,7 +63,7 @@
                         <td colspan="2">{{ __( 'Payment method', 'wepos' ) }}</td>
                         <td class="price">{{ printdata.gateway.title || '' }}</td>
                     </tr>
-                    <template v-if="printdata.gateway.id='wepos_cash'">
+                    <template v-if="printdata.gateway.id==='wepos_cash'">
                         <tr>
                             <td colspan="2">{{ __( 'Cash Given', 'wepos' ) }}</td>
                             <td class="price">{{ formatPrice( printdata.cashamount ) }}</td>
@@ -71,6 +71,12 @@
                         <tr>
                             <td colspan="2">{{ __( 'Change Money', 'wepos' ) }}</td>
                             <td class="price">{{ formatPrice( printdata.changeamount ) }}</td>
+                        </tr>
+                    </template>
+                    <template v-if="printdata.gateway.id==='wepos_POSTicket'">
+                        <tr>
+                            <td colspan="2">{{ __( 'Authorization', 'wepos' ) }}</td>
+                            <td class="price">{{  printdata.posAuthorization  }}</td>
                         </tr>
                     </template>
                 </tbody>

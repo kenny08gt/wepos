@@ -1090,6 +1090,26 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8212,12 +8232,14 @@ var render = function() {
                           "div",
                           { staticClass: "payment-gateway" },
                           [
+                            _c("h1", [_vm._v("Payment gatewayssss")]),
+                            _vm._v(" "),
                             _vm.availableGateways.length > 0
                               ? [
                                   _vm._l(_vm.availableGateways, function(
                                     gateway
                                   ) {
-                                    return _c("label", [
+                                    return _c("label", { key: gateway.id }, [
                                       _c("input", {
                                         directives: [
                                           {
@@ -8286,7 +8308,83 @@ var render = function() {
                           2
                         ),
                         _vm._v(" "),
+                        _c("h1", [
+                          _vm._v(_vm._s(_vm.orderdata.payment_method))
+                        ]),
+                        _vm._v(" "),
                         _vm.orderdata.payment_method == "wepos_cash"
+                          ? [
+                              _c("div", { staticClass: "payment-option" }, [
+                                _c("div", { staticClass: "payment-amount" }, [
+                                  _c("div", { staticClass: "input-part" }, [
+                                    _c("div", { staticClass: "input-wrap" }, [
+                                      _c("p", [
+                                        _vm._v(_vm._s(_vm.__("Cash", "wepos")))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "input-addon" },
+                                        [
+                                          _c(
+                                            "span",
+                                            { staticClass: "currency" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.wepos
+                                                    .currency_format_symbol
+                                                )
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.cashAmount,
+                                                expression: "cashAmount"
+                                              }
+                                            ],
+                                            ref: "cashamount",
+                                            attrs: { type: "text" },
+                                            domProps: { value: _vm.cashAmount },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.cashAmount =
+                                                  $event.target.value
+                                              }
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "change-money" }, [
+                                    _c("p", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.__("Change money", "wepos")
+                                        ) +
+                                          ": " +
+                                          _vm._s(
+                                            _vm.formatPrice(_vm.changeAmount)
+                                          )
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            ]
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.orderdata.payment_method == "wepos_POSTicket"
                           ? [
                               _c("div", { staticClass: "payment-option" }, [
                                 _c("div", { staticClass: "payment-amount" }, [

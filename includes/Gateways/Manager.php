@@ -7,14 +7,16 @@ namespace WeDevs\WePOS\Gateways;
  *
  * @since 1.1.9
  */
-class Manager {
+class Manager
+{
 
     /**
      * Gateway manager
      */
-    public function __construct() {
-        add_action( 'plugins_loaded', [ $this, 'init_gateways' ], 11, 1 );
-        add_action( 'woocommerce_payment_gateways', [ $this, 'payment_gateways' ] );
+    public function __construct()
+    {
+        add_action('plugins_loaded', [$this, 'init_gateways'], 11, 1);
+        add_action('woocommerce_payment_gateways', [$this, 'payment_gateways']);
     }
 
     /**
@@ -25,14 +27,15 @@ class Manager {
      *
      * @return void
      */
-    public function init_gateways() {
-        if ( ! $this->is_wc_active() ) {
+    public function init_gateways()
+    {
+        if (!$this->is_wc_active()) {
             return;
         }
 
         $gateways = $this->available_gateway();
 
-        foreach ( $gateways as $class => $path ) {
+        foreach ($gateways as $class => $path) {
             require_once $path;
         }
     }
@@ -45,8 +48,9 @@ class Manager {
      *
      * @return bool
      */
-    public function is_wc_active() {
-        if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'wepos_active_plugins', get_option( 'active_plugins' ) ) ) ) {
+    public function is_wc_active()
+    {
+        if (in_array('woocommerce/woocommerce.php', apply_filters('wepos_active_plugins', get_option('active_plugins')))) {
             return true;
         }
 
@@ -62,11 +66,12 @@ class Manager {
      *
      * @return array
      */
-    public function payment_gateways( $gateways ) {
+    public function payment_gateways($gateways)
+    {
         $available_gateway = $this->available_gateway();
 
         // else add default POS gateways
-        return array_merge( $gateways, apply_filters( 'wepos_payment_gateway', array_keys( $available_gateway ) ) );
+        return array_merge($gateways, apply_filters('wepos_payment_gateway', array_keys($available_gateway)));
     }
 
     /**
@@ -77,10 +82,11 @@ class Manager {
      *
      * @return array
      */
-    public function available_gateway() {
-        return apply_filters( 'wepos_register_gateway', [
-            'WeDevs\WePOS\Gateways\Cash' => WEPOS_INCLUDES . '/Gateways/Cash.php'
-        ] );
+    public function available_gateway()
+    {
+        return apply_filters('wepos_register_gateway', [
+            'WeDevs\WePOS\Gateways\Cash' => WEPOS_INCLUDES . '/Gateways/Cash.php',
+            'WeDevs\WePOS\Gateways\POSTicket' => WEPOS_INCLUDES . '/Gateways/POSTicket.php'
+        ]);
     }
-
 }
