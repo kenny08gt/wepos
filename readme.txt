@@ -60,7 +60,7 @@ No FAQ
 
 == Changelog ==
 
-= v1.2.7 -> 5th June, 2024 =
+= v1.2.8 -> 5th June, 2024 =
 -----------------------------
 - **Feature:** WooCommerce Coupon API integration for cart discount
 - **Enhancement:** Added support for WooCommerce customised order numbers by third-party plugins
