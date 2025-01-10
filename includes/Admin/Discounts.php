@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * For managing coupons on admin panel.
  *
- * @since WEPOS_SINCE
+ * @since 1.3.0
  *
  * @package wepos
  */
@@ -20,7 +20,7 @@ class Discounts {
     /**
      * Discount Type Key.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      *
      * @var string
      */
@@ -29,7 +29,7 @@ class Discounts {
     /**
      * Class Constructor.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      */
     public function __construct() {
         add_action( 'load-edit.php', [ $this, 'hide_discount_coupons' ] );
@@ -40,7 +40,7 @@ class Discounts {
     /**
      * Hide Discount Coupons from Admin Coupon List Table.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      *
      * @return void
      */
@@ -93,7 +93,7 @@ class Discounts {
     /**
      * Get Discount Coupons.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      *
      * @return int[]
      */
@@ -121,7 +121,7 @@ class Discounts {
     /**
      * Remove Discount Coupons.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      *
      * @return void
      */
@@ -137,7 +137,7 @@ class Discounts {
     /**
      * Remove Discount Coupon URL from Order Item.
      *
-     * @since WEPOS_SINCE
+     * @since 1.3.0
      *
      * @param string                $url   Coupon URL
      * @param \WC_Order_Item_Coupon $item  Order Coupon Item
